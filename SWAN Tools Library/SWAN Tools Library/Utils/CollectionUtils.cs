@@ -109,5 +109,18 @@ namespace swantiez.unity.tools.utils
             if (!typeof(T).IsEnum) throw new ArgumentException("T must be an enumerated type");
             return Enum.GetValues(typeof(T)).Length;
         }
+
+        public static void ShuffleFY<T>(this IList<T> list)
+        {
+            for (int i = list.Count; i > 1; i--)
+            {
+                // Pick random element to swap.
+                int j = UnityEngine.Random.Range(0, i); // 0 <= j <= i-1
+                // Swap.
+                T tmp = list[j];
+                list[j] = list[i - 1];
+                list[i - 1] = tmp;
+            }
+        }
     }
 }

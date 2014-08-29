@@ -4,19 +4,9 @@ namespace swantiez.unity.tools.utils
 {
     public static class FloatUtils
     {
-        public static bool IsFloatPreciselyZero(float value)
-        {
-            return Mathf.Approximately(value, 0f);
-        }
-
         public static bool IsPreciselyZero(this float value)
         {
             return Mathf.Approximately(value, 0f);
-        }
-
-        public static bool IsFloatPreciselyNotZero(float value)
-        {
-            return !Mathf.Approximately(value, 0f);
         }
 
         public static bool IsPreciselyNotZero(this float value)
@@ -77,44 +67,24 @@ namespace swantiez.unity.tools.utils
             return IsFirstFloatPreciselyGreaterOrEqualToSecond(currentValue, value);
         }
 
-        public static bool IsFloatPreciselyStrictlyPositive(float n)
-        {
-            return IsFirstFloatPreciselyStrictlyGreaterThanSecond(n, 0f);
-        }
-
         public static bool IsPreciselyStrictlyPositive(this float currentValue)
         {
-            return IsFloatPreciselyStrictlyPositive(currentValue);
-        }
-
-        public static bool IsFloatPreciselyPositiveOrZero(float n)
-        {
-            return IsFirstFloatPreciselyGreaterOrEqualToSecond(n, 0f);
+            return IsFirstFloatPreciselyStrictlyGreaterThanSecond(currentValue, 0f);
         }
 
         public static bool IsPreciselyPositiveOrZero(this float currentValue)
         {
-            return IsFloatPreciselyPositiveOrZero(currentValue);
-        }
-
-        public static bool IsFloatPreciselyStrictlyNegative(float n)
-        {
-            return IsFirstFloatPreciselyStrictlySmallerThanSecond(n, 0f);
+            return IsFirstFloatPreciselyGreaterOrEqualToSecond(currentValue, 0f);
         }
 
         public static bool IsPreciselyStrictlyNegative(this float currentValue)
         {
-            return IsFloatPreciselyStrictlyNegative(currentValue);
-        }
-
-        public static bool IsFloatPreciselyNegativeOrZero(float n)
-        {
-            return IsFirstFloatPreciselySmallerOrEqualToSecond(n, 0f);
+            return IsFirstFloatPreciselyStrictlySmallerThanSecond(currentValue, 0f);
         }
 
         public static bool IsPreciselyNegativeOrZero(this float currentValue)
         {
-            return IsFloatPreciselyNegativeOrZero(currentValue);
+            return IsFirstFloatPreciselySmallerOrEqualToSecond(currentValue, 0f);
         }
 
         public static bool IsFloatPreciselyStrictlyBetween(float value, float min, float max)

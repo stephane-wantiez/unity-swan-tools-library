@@ -32,7 +32,7 @@ namespace swantiez.unity.tools.activators
 
         private IKillable getKillable(GameObject obj)
         {
-            List<IKillable> killables = MiscUtils.GetComponentsInObjectOfType<IKillable>(obj);
+            List<IKillable> killables = MiscUtils.GetComponentsOfType<IKillable>(obj);
             return killables.IsEmpty() ? null : killables[0];
         }
 

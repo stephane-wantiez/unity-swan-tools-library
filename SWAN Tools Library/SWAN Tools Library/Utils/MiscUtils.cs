@@ -26,21 +26,21 @@ namespace swantiez.unity.tools.utils
             return objectsToReturn;
         }
 
-        public static bool IsPointOverObject(Vector2 point, GameObject objectToCheck)
+        public static bool IsPointOver2DObject(GameObject objectToCheck, Vector2 point)
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(point, Vector2.zero);
             //Debug.Log("Clicked at point " + point + ", touched " + hits.Length + " colliders");
             return Array.Exists(hits, h => h.collider.gameObject == objectToCheck);
         }
 
-        public static bool IsMouseOverObject(GameObject objectToCheck)
+        public static bool IsMouseOver2DObject(this GameObject objectToCheck)
         {
             Vector3 mousePointInWorld;
             CameraUtils.GetWorldPointFromScreenAtPosZ(Input.mousePosition, objectToCheck.transform.position.z, out mousePointInWorld);
-            return IsPointOverObject(mousePointInWorld, objectToCheck);
+            return IsPointOver2DObject(objectToCheck, mousePointInWorld);
         }
 
-        public static Vector2 GetCollisionImpulseForce(Rigidbody2D body, Collision2D collision)
+        public static Vector2 GetCollisionImpulseForce(this Rigidbody2D body, Collision2D collision)
         {
             float colliderMass = (collision.rigidbody != null) && !collision.rigidbody.isKinematic ? collision.rigidbody.mass : 1000f;
             Vector2 collisionVelocityDelta = colliderMass * collision.relativeVelocity / (body.mass + colliderMass);
@@ -48,7 +48,7 @@ namespace swantiez.unity.tools.utils
             return collisionImpulse;
         }
 
-        public static Vector2 GetCollisionImpulseForce(Rigidbody body, Collision collision)
+        public static Vector2 GetCollisionImpulseForce(this Rigidbody body, Collision collision)
         {
             float colliderMass = (collision.rigidbody != null) && !collision.rigidbody.isKinematic ? collision.rigidbody.mass : 1000f;
             Vector2 collisionVelocityDelta = colliderMass * collision.relativeVelocity / (body.mass + colliderMass);
@@ -56,8 +56,12 @@ namespace swantiez.unity.tools.utils
             return collisionImpulse;
         }
 
-        public static void EnableObjectColliders(GameObject obj, bool enabled, bool includeChildren)
+        public static void EnableColliders(this GameObject obj, bool enabled, bool includeChildren)
         {
+            foreach (Collider coll in obj.GetComponents<Collider>())
+            {
+                coll.enabled = enabled;
+            }
             foreach (Collider2D coll in obj.GetComponents<Collider2D>())
             {
                 coll.enabled = enabled;
@@ -65,6 +69,10 @@ namespace swantiez.unity.tools.utils
 
             if (includeChildren)
             {
+                foreach (Collider coll in obj.GetComponentsInChildren<Collider>())
+                {
+                    coll.enabled = enabled;
+                }
                 foreach (Collider2D coll in obj.GetComponentsInChildren<Collider2D>())
                 {
                     coll.enabled = enabled;
@@ -87,20 +95,20 @@ namespace swantiez.unity.tools.utils
             return obj.GetComponent<T>();
         }
 
-        public static Vector3 GetMeanPositionFrom(IEnumerable<Vector3> pos)
+        public static Vector3 GetMeanPosition(this IEnumerable<Vector3> pos)
         {
             if (pos == null) throw new ArgumentNullException("pos");
             return pos.Aggregate((p1, p2) => p1 + p2)/pos.Count();
         }
 
-        public static Vector3 GetMeanPositionFrom(List<Transform> objects)
+        public static Vector3 GetMeanPosition(this IEnumerable<Transform> objects)
         {
-            return GetMeanPositionFrom(objects.Select(o => o.position));
+            return GetMeanPosition(objects.Select(o => o.position));
         }
 
-        public static Vector3 GetMeanPositionFrom<T>(List<T> objects) where T : MonoBehaviour
+        public static Vector3 GetMeanPosition<T>(List<T> objects) where T : MonoBehaviour
         {
-            return GetMeanPositionFrom(objects.Select(o => o.transform.position));
+            return GetMeanPosition(objects.Select(o => o.transform.position));
         }
 
         private static Vector3 getPositionForProvidedMethod(IEnumerable<Vector3> pos, Func<float, float, float> method)
@@ -126,37 +134,37 @@ namespace swantiez.unity.tools.utils
             return validPos;
         }
 
-        public static Vector3 GetMinPositionFrom(IEnumerable<Vector3> pos)
+        public static Vector3 GetMinPosition(this IEnumerable<Vector3> pos)
         {
             return getPositionForProvidedMethod(pos, Mathf.Min);
         }
 
-        public static Vector3 GetMinPositionFrom(List<Transform> objects)
+        public static Vector3 GetMinPosition(this IEnumerable<Transform> objects)
         {
-            return GetMeanPositionFrom(objects.Select(o => o.position));
+            return GetMeanPosition(objects.Select(o => o.position));
         }
 
-        public static Vector3 GetMinPositionFrom<T>(List<T> objects) where T : MonoBehaviour
+        public static Vector3 GetMinPosition<T>(List<T> objects) where T : MonoBehaviour
         {
-            return GetMeanPositionFrom(objects.Select(o => o.transform.position));
+            return GetMeanPosition(objects.Select(o => o.transform.position));
         }
 
-        public static Vector3 GetMaxPositionFrom(IEnumerable<Vector3> pos)
+        public static Vector3 GetMaxPosition(this IEnumerable<Vector3> pos)
         {
             return getPositionForProvidedMethod(pos, Mathf.Max);
         }
 
-        public static Vector3 GetMaxPositionFrom(List<Transform> objects)
+        public static Vector3 GetMaxPosition(this IEnumerable<Transform> objects)
         {
-            return GetMeanPositionFrom(objects.Select(o => o.position));
+            return GetMeanPosition(objects.Select(o => o.position));
         }
 
-        public static Vector3 GetMaxPositionFrom<T>(List<T> objects) where T : MonoBehaviour
+        public static Vector3 GetMaxPosition<T>(List<T> objects) where T : MonoBehaviour
         {
-            return GetMeanPositionFrom(objects.Select(o => o.transform.position));
+            return GetMeanPosition(objects.Select(o => o.transform.position));
         }
 
-        public static List<T> GetComponentsInObjectOfType<T>(GameObject obj) where T : class
+        public static List<T> GetComponentsOfType<T>(this GameObject obj) where T : class
         {
             MonoBehaviour[] objScripts = obj.GetComponents<MonoBehaviour>();
             if (objScripts.IsEmpty()) return null;
@@ -167,6 +175,20 @@ namespace swantiez.unity.tools.utils
                 if (ss != null) objTScripts.Add(ss);
             });
             return objTScripts;
+        }
+
+        public static void DestroyAllChildren(this Transform transformParent, Action<GameObject> destroyAction)
+        {
+            for (int i = transformParent.childCount - 1; i >= 0; --i)
+            {
+                destroyAction(transformParent.GetChild(i).gameObject);
+            }
+        }
+
+        public static void DestroyAllChildren(this Transform transformParent, bool runtime)
+        {
+            if (runtime) DestroyAllChildren(transformParent, UnityEngine.Object.Destroy);
+            else DestroyAllChildren(transformParent, UnityEngine.Object.DestroyImmediate);
         }
     }
 }
