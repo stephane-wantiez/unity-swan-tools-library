@@ -73,7 +73,7 @@ namespace swantiez.unity.tools.audio
         {
             _instance = this;
             audioSources.Clear();
-            if (specificAudioSource == null) specificAudioSource = audio;
+            if (specificAudioSource == null) specificAudioSource = GetComponent<AudioSource>();
             if (specificAudioSource == null)
             {
                 Debug.LogError("Missing audio source in SourceManager! There won't be any sound!");

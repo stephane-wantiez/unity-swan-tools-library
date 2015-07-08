@@ -32,10 +32,10 @@ namespace swantiez.unity.tools.activators
 
             foreach (Collider2D c in colliders)
             {
-                if (c.rigidbody2D != null)
+                if (c.GetComponent<Rigidbody2D>() != null)
                 {
                     //Debug.Log("Found collider with rigidbody2D named '" + c.gameObject.name + "'");
-                    c.rigidbody2D.AddExplosionForce(force, transform.position, radius);
+                    c.GetComponent<Rigidbody2D>().AddExplosionForce(force, transform.position, radius);
                 }
             }
 

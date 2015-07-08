@@ -8,7 +8,7 @@ namespace swantiez.unity.tools.physics
 
         void FixedUpdate()
         {
-            velocity = rigidbody ? rigidbody.velocity : (rigidbody2D ? (Vector3) rigidbody2D.velocity : Vector3.zero);
+            velocity = GetComponent<Rigidbody>() ? GetComponent<Rigidbody>().velocity : (GetComponent<Rigidbody2D>() ? (Vector3)GetComponent<Rigidbody2D>().velocity : Vector3.zero);
         }
     }
 }

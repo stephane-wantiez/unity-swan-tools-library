@@ -44,8 +44,8 @@ namespace swantiez.unity.tools.activators
             if (!body2D && !body3D) return 0f;
             Vector3 velocity = body2D ? (Vector3) body2D.velocity : body3D.velocity;
             float mass = body2D ? body2D.mass : body3D.mass;
-            bool colliderIsNull = body2D ? !body2D.collider2D : !body3D.collider;
-            bool colliderIsTrigger = !colliderIsNull && (body2D ? body2D.collider2D.isTrigger : body3D.collider.isTrigger);
+            bool colliderIsNull = body2D ? !body2D.GetComponent<Collider2D>() : !body3D.GetComponent<Collider>();
+            bool colliderIsTrigger = !colliderIsNull && (body2D ? body2D.GetComponent<Collider2D>().isTrigger : body3D.GetComponent<Collider>().isTrigger);
             if (FloatUtils.IsFirstFloatPreciselySmallerOrEqualToSecond(Mathf.Abs(velocity.y), 0.1f) && !colliderIsNull && !colliderIsTrigger)
             {
                 return mass;
@@ -56,8 +56,8 @@ namespace swantiez.unity.tools.activators
         private float getEffectiveWeightOfMeasuredBodies(CollisionActivator collisionActivator)
         {
             return collisionActivator.getCollidingObjects()
-                .Where(collidingObject => (collidingObject.rigidbody != null) || (collidingObject.rigidbody2D != null))
-                .Sum(collidingObject => getEffectiveWeightFromBody(collidingObject.rigidbody, collidingObject.rigidbody2D));
+                .Where(collidingObject => (collidingObject.GetComponent<Rigidbody>() != null) || (collidingObject.GetComponent<Rigidbody2D>() != null))
+                .Sum(collidingObject => getEffectiveWeightFromBody(collidingObject.GetComponent<Rigidbody>(), collidingObject.GetComponent<Rigidbody2D>()));
         }
 
         private void checkWeight(AbstractActivator activator)

@@ -88,13 +88,13 @@ namespace swantiez.unity.tools.activators
 
         void OnCollisionEnter2D(Collision2D other)
         {
-            float collisionImpulsionForceSqr = checkCollisionForces ? MiscUtils.GetCollisionImpulseForce(rigidbody2D, other).sqrMagnitude : 0f;
+            float collisionImpulsionForceSqr = checkCollisionForces ? MiscUtils.GetCollisionImpulseForce(GetComponent<Rigidbody2D>(), other).sqrMagnitude : 0f;
             checkCollision(other.gameObject, other.rigidbody, true, collisionImpulsionForceSqr);
         }
 
         void OnCollisionEnter(Collision other)
         {
-            float collisionImpulsionForceSqr = checkCollisionForces ? MiscUtils.GetCollisionImpulseForce(rigidbody, other).sqrMagnitude : 0f;
+            float collisionImpulsionForceSqr = checkCollisionForces ? MiscUtils.GetCollisionImpulseForce(GetComponent<Rigidbody>(), other).sqrMagnitude : 0f;
             checkCollision(other.gameObject, other.rigidbody, true, collisionImpulsionForceSqr);
         }
 
@@ -110,22 +110,22 @@ namespace swantiez.unity.tools.activators
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            checkCollision(other.gameObject, other.rigidbody, true, 0f);
+            checkCollision(other.gameObject, other.GetComponent<Rigidbody>(), true, 0f);
         }
 
         void OnTriggerEnter(Collider other)
         {
-            checkCollision(other.gameObject, other.rigidbody, true, 0f);
+            checkCollision(other.gameObject, other.GetComponent<Rigidbody>(), true, 0f);
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            checkCollision(other.gameObject, other.rigidbody, false, 0f);
+            checkCollision(other.gameObject, other.GetComponent<Rigidbody>(), false, 0f);
         }
 
         void OnTriggerExit(Collider other)
         {
-            checkCollision(other.gameObject, other.rigidbody, false, 0f);
+            checkCollision(other.gameObject, other.GetComponent<Rigidbody>(), false, 0f);
         }
 
         void Update()

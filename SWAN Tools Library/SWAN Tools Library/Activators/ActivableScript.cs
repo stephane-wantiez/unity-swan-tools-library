@@ -36,7 +36,7 @@ namespace swantiez.unity.tools.activators
         {
             ScriptAction action = activated ? actionOnScriptWhenActivated : actionOnScriptWhenDeactivated;
             applyActionOnScript(action, joint2DScript, (s, v) => s.enabled = v);
-            applyActionOnScript(action, joint3DScript, (s, v) => s.active = v);
+            //applyActionOnScript(action, joint3DScript, (s, v) => s.enabled = v);
             applyActionOnScript(action, renderScript, (s, v) => s.enabled = v);
             applyActionOnScript(action, collider2DScript, (s, v) => s.enabled = v);
             applyActionOnScript(action, collider3DScript, (s, v) => s.enabled = v);

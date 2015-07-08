@@ -19,13 +19,13 @@ namespace swantiez.unity.tools.utils
         private void enableZoneCollider(bool enable)
         {
             zoneColliderEnabled = enable;
-            if (collider != null) collider.enabled = enable;
-            if (collider2D != null) collider2D.enabled = enable;
+            if (GetComponent<Collider>() != null) GetComponent<Collider>().enabled = enable;
+            if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = enable;
         }
 
         private bool isValid(GameObject otherObj)
         {
-            if (onlyWithActiveRenderer && !renderer.enabled) return false;
+            if (onlyWithActiveRenderer && !GetComponent<Renderer>().enabled) return false;
             if ((restringToTags == null) || (restringToTags.Length == 0)) return true;
             return Array.Exists(restringToTags, otherObj.CompareTag);
         }
@@ -58,7 +58,7 @@ namespace swantiez.unity.tools.utils
 
         void Update()
         {
-            bool killZoneEnabled = !onlyWithActiveRenderer || renderer.enabled;
+            bool killZoneEnabled = !onlyWithActiveRenderer || GetComponent<Renderer>().enabled;
 
             if (!zoneColliderEnabled && killZoneEnabled)
             {
