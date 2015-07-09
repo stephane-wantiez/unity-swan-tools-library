@@ -22,7 +22,7 @@ namespace swantiez.unity.tools.utils
             return !IsCollFilled(array);
         }
 
-        public static string CollToString<T>(IEnumerable<T> coll)
+        public static string CollToString<T>(IEnumerable<T> coll, Func<T,string> elemToStr)
         {
             if (coll == null) return "NULL";
             StringBuilder str = new StringBuilder("{");
@@ -35,6 +35,11 @@ namespace swantiez.unity.tools.utils
             }
             str.Append("}");
             return str.ToString();
+        }
+
+        public static string CollToString<T>(IEnumerable<T> coll)
+        {
+            return CollToString(coll, elem => { return "" + elem; });
         }
 
         public static string GetAsString<T>(this IEnumerable<T> coll)
