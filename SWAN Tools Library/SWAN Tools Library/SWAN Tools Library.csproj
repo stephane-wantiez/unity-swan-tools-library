@@ -11,7 +11,8 @@
     <AssemblyName>SWAN Tools Library</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,10 +40,8 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\..\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -65,7 +64,6 @@
     <Compile Include="Audio\SoundOrMusic.cs" />
     <Compile Include="Audio\SoundPitch.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
-    <Compile Include="Editor\UtilsForEditor.cs" />
     <Compile Include="Physics\Rigidbody2DExtension.cs" />
     <Compile Include="Physics\ShowVelocity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
