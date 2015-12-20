@@ -74,5 +74,15 @@ namespace swantiez.unity.tools.utils
         {
             return GetSignedAngleBetweenVectors(vector, currentVector);
         }
+
+        public static float Clamp(float minValue, float value, float maxValue)
+        {
+            return Math.Min(Math.Max(value, minValue), maxValue);
+        }
+
+        public static int Clamp(int minValue, int value, int maxValue)
+        {
+            return Math.Min(Math.Max(value, minValue), maxValue);
+        }
     }
 }
