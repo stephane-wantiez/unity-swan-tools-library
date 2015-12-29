@@ -67,13 +67,18 @@
     <Compile Include="Physics\Rigidbody2DExtension.cs" />
     <Compile Include="Physics\ShowVelocity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\ApplicationQuit.cs" />
+    <Compile Include="UI\ComponentsEnabler.cs" />
     <Compile Include="Utils\CollectionUtils.cs" />
+    <Compile Include="Utils\CreditsManager.cs" />
     <Compile Include="Utils\DelegateUtils.cs" />
+    <Compile Include="UI\DisableComponentOnWeb.cs" />
     <Compile Include="Utils\FloatUtils.cs" />
     <Compile Include="Utils\IKillable.cs" />
     <Compile Include="Utils\KillZone.cs" />
     <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
+    <Compile Include="UI\SceneSwitcher.cs" />
     <Compile Include="Utils\TimedDestruction.cs" />
     <Compile Include="Utils\VectorUtils.cs" />
   </ItemGroup>
